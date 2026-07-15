@@ -161,8 +161,14 @@ class Matrix:
 
     def __pow__(self,other):
 
-        if not isinstance(other, (int,float)):
-            raise TypeError("Matrices may only be raised to the power of scalars.")
+        if not isinstance(other, int):
+            raise TypeError("Matrices may only be raised to a power of integers.")
+
+        clone1 = self
+        clone2
+
+        for i in range(other-1):
+            clone1 = clone1 * clone2
 
     def inverse(self):
 
