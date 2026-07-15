@@ -8,7 +8,7 @@ class Matrix:
         return "⌈"+"|\n|".join(" ".join(f"{element:g}" for element in row) for row in self.data)+"⌋"
 
     def __format__(self, spec):
-        return ""⌈"+"|\n|".join(" ".join(f"{element:spec}" for element in row) for row in self.data)+"⌋""
+        return ""⌈"+"|\n|".join(" ".join(format(element,spec) for element in row) for row in self.data)+"⌋""
 
     @property
     def data(self):
@@ -34,22 +34,10 @@ class Matrix:
         return (len(self.data),len(self.data[0]))
 
     def __eq__(self, other):
-        if not isinstance(other, Matrix):
-            return False
-        for i in range(len(self.data)):
-            for k in range(len(self.data[0])):
-                if self.data[i][k] != other.data[i][k]:
-                    return False
-        return True
+        return self.data == other.data
 
     def __ne__(self, other):
-        if not isinstance(other, Matrix):
-            return False
-        for i in range(len(self.data)):
-            for k in range(len(self.data[0])):
-                if self.data[i][k] == other.data[i][k]:
-                    return False
-        return True
+        return not self == other
 
     def __len__(self):
         return len(self.data)*len(self.data[0])
@@ -58,6 +46,9 @@ class Matrix:
         return self * -1
 
     def __iter__(self):
+        return iter(self.data)
+
+    def elements(self):
         for i in range(len(self.data)):
             for k in range(len(self.data[0])):
                 yield self.data[i][k]
@@ -65,7 +56,7 @@ class Matrix:
     def __getitem__(self, index):
         if not isinstance(index,int):
             raise TypeError("Matrix indecies may only be integers.")
-        return self.data[index//self.dimensions[0]][index%self.dimensions[0]]
+        return self.data[index//self.dimensions()[1]][index%self.dimensions()[1]]
 
     def __add__(self,other):
 
@@ -162,11 +153,15 @@ class Matrix:
         if not isinstance(other, int):
             raise TypeError("Matrices may only be raised to a power of integers.")
 
-        clone1 = self
-        clone2
+        if not self.dimensions()[0] == self.dimensions()[1]:
+            raise ValueError("Non-square matrices may not be raised to powers.")
 
-        for i in range(other-1):
-            clone1 = clone1 * clone2
+        result = identity(self.dimensions()[0])
+
+        for _ in range(other):
+            result = result * self
+
+        return result
 
     def inverse(self):
 
@@ -234,7 +229,7 @@ def identity(size):
 
 def zero(height, width):
 
-    if not isinstance((height, width), int):
+    if not isinstance(height, int) or not isinstance(width, int):
         raise ValueError("Matrices may only have integer dimensions.")
 
     result = []
