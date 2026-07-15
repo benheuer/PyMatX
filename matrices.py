@@ -7,6 +7,9 @@ class Matrix:
     def __str__(self):
         return "⌈"+"|\n|".join(" ".join(f"{element:g}" for element in row) for row in self.data)+"⌋"
 
+    def __format__(self, spec):
+        return ""⌈"+"|\n|".join(" ".join(f"{element:spec}" for element in row) for row in self.data)+"⌋""
+
     @property
     def data(self):
         return self._data
@@ -58,6 +61,9 @@ class Matrix:
         for i in range(len(self.data)):
             for k in range(len(self.data[0])):
                 yield self.data[i][k]
+
+    def __getitem__(self, index):
+        return self.data[index]
 
     def __add__(self,other):
 
