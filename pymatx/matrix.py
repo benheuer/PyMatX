@@ -8,7 +8,7 @@ class Matrix:
         return "⌈"+"|\n|".join(" ".join(f"{element:g}" for element in row) for row in self.data)+"⌋"
 
     def __format__(self, spec):
-        return "⌈"+"|\n|".join(" ".join(format(element,spec) for element in row) for row in self.data)+"⌋""
+        return "⌈"+"|\n|".join(" ".join(format(element,spec) for element in row) for row in self.data)+"⌋"
 
     @property
     def data(self):
@@ -203,7 +203,7 @@ class Matrix:
 
     def inverse(self):
 
-        error_bar = 1e-12
+        """Uses Gauss-Jordan Elimination to procedurally generate the inverse of a matrix"""
 
         if self.dimensions()[0] != self.dimensions()[1]:
             raise ValueError("Cannot invert a non-square matrix")
@@ -214,11 +214,11 @@ class Matrix:
         clone = Matrix([[x for x in row] for row in self.data])
 
         for i in range(size):
-            if abs(clone.data[i][i]) > error_bar:
+            if clone.data[i][i] == 0:
                 pass
             else:
                 for k in range(size-i):
-                    if abs(clone.data[i+k][i]) > error_bar:
+                    if clone.data[i+k][i] == 0:
                         duplicator_clone = clone.data[i+k]
                         duplicator_res = result.data[i+k]
                         clone.data[i+k] = clone.data[i]
@@ -236,7 +236,7 @@ class Matrix:
             for n in range(size):
                 if n == i:
                     pass
-                elif abs(clone.data[n][i]) > error_bar:
+                elif clone.data[n][i]:
                     scalar = clone.data[n][i]
                     for m in range(size):
                         clone.data[n][m] -= scalar * clone.data[i][m]
