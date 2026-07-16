@@ -8,7 +8,7 @@ class Matrix:
         return "⌈"+"|\n|".join(" ".join(f"{element:g}" for element in row) for row in self.data)+"⌋"
 
     def __format__(self, spec):
-        return ""⌈"+"|\n|".join(" ".join(format(element,spec) for element in row) for row in self.data)+"⌋""
+        return "⌈"+"|\n|".join(" ".join(format(element,spec) for element in row) for row in self.data)+"⌋""
 
     @property
     def data(self):
