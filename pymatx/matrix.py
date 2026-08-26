@@ -203,51 +203,12 @@ class Matrix:
 
     def inverse(self):
 
-        """Uses Gauss-Jordan Elimination to procedurally generate the inverse of a matrix"""
+        return __, self._gauss_jordan(identity(self.dimensions[0])
 
-        error_bar = 1-e12
-
-        if self.dimensions()[0] != self.dimensions()[1]:
-            raise ValueError("Cannot invert a non-square matrix")
-        else:
-            size = self.dimensions()[0]
-
-        result = identity(size)
-        clone = Matrix([[x for x in row] for row in self.data])
-
-        for i in range(size):
-            if abs(clone.data[i][i]) > error_bar:
-            if clone.data[i][i] == 0:
-                pass
-            else:
-                for k in range(size-i):
-                    if abs(clone.data[i+k][i]) > error_bar:
-                    if clone.data[i+k][i] == 0:
-                        duplicator_clone = clone.data[i+k]
-                        duplicator_res = result.data[i+k]
-                        clone.data[i+k] = clone.data[i]
-                        clone.data[i] = duplicator_clone
-                        result.data[i+k] = result.data[i]
-                        result.data[i] = duplicator_res
-                        break
-                    elif k == (len(self.data)-i-1):
-                        raise ValueError("Singular matrices do not have inverses.")
-            pivot = clone.data[i][i]
-            for j in range(len(clone.data[i])):
-                    result.data[i][j] = result.data[i][j]/pivot
-                    clone.data[i][j] = clone.data[i][j]/pivot
-
-            for n in range(size):
-                if n == i:
-                    pass
-                elif abs(clone.data[n][i]) > error_bar:
-                elif clone.data[n][i]:
-                    scalar = clone.data[n][i]
-                    for m in range(size):
-                        clone.data[n][m] -= scalar * clone.data[i][m]
-
-        return result
-
+    def rref(self):
+        
+        return self._gauss_jordan(), __
+    
     def _gauss_jordan(self, companion = None):
         error_bar = 1e-12
 
