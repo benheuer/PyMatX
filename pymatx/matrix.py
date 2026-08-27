@@ -203,11 +203,11 @@ class Matrix:
 
     def inverse(self):
 
-        return __, self._gauss_jordan(identity(self.dimensions[0])
+        return self._gauss_jordan(identity(self.dimensions[0])[1]
 
     def rref(self):
         
-        return self._gauss_jordan(), __
+        return self._gauss_jordan()[0]
     
     def _gauss_jordan(self, companion = None):
         error_bar = 1e-12
