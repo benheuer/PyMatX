@@ -253,7 +253,7 @@ class Matrix:
                         if coclone is not None:
                             coclone.data[n][m] -= scalar * coclone.data[i][m]
 
-        return clone, coclone
+            return clone, coclone
 
 
 def identity(size):
