@@ -201,14 +201,6 @@ class Matrix:
 
         return result
 
-    def inverse(self):
-
-        return self._gauss_jordan(identity(self.dimensions[0])[1]
-
-    def rref(self):
-        
-        return self._gauss_jordan()[0]
-    
     def _gauss_jordan(self, companion = None):
         error_bar = 1e-12
 
@@ -254,6 +246,14 @@ class Matrix:
                             coclone.data[n][m] -= scalar * coclone.data[i][m]
 
             return clone, coclone
+
+    def inverse(self):
+
+        return self._gauss_jordan(identity(self.dimensions[0])[1]
+
+    def rref(self):
+        
+        return self._gauss_jordan()[0]
 
 
 def identity(size):
