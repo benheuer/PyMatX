@@ -253,7 +253,7 @@ class Matrix:
 
     def inverse(self):
 
-        return self._gauss_jordan(identity(self.dimensions[0])[1]
+        return self._gauss_jordan(identity(self.dimensions[0]))[1]
 
 
 def identity(size):
