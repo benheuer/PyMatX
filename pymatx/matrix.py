@@ -247,13 +247,13 @@ class Matrix:
 
             return clone, coclone
 
-    def inverse(self):
-
-        return self._gauss_jordan(identity(self.dimensions[0])[1]
-
     def rref(self):
         
         return self._gauss_jordan()[0]
+
+    def inverse(self):
+
+        return self._gauss_jordan(identity(self.dimensions[0])[1]
 
 
 def identity(size):
