@@ -60,40 +60,66 @@ class Matrix:
 
     def __add__(self,other):
 
-        if not isinstance(other, Matrix):
-            raise TypeError("Matrices may only be added to other matrices")
+        if not isinstance(other, Matrix) and not isinstance(other,(float,int)):
+            raise TypeError("Matrices may only be added by other matrices or a scalar")
 
-        if self.dimensions() != other.dimensions():
-            raise ValueError("Invalid dimensions")
-
-        result = []
-
-        for i in range(len(self.data)):
-            row = []
-            for j in range(len(self.data[0])):
-                row.append(self.data[i][j] + other.data[i][j])
-            result.append(row)
-            row = []
+        if isinstance(other,Matrix):
+            if self.dimensions() != other.dimensions():
+                raise ValueError("Invalid dimensions")
+    
+            result = []
+    
+            for i in range(len(self.data)):
+                row = []
+                for j in range(len(self.data[0])):
+                    row.append(self.data[i][j] - other.data[i][j])
+                result.append(row)
+                row = []
+        else:
+            if self.dimensions() != other.dimensions():
+                raise ValueError("Invalid dimensions")
+    
+            result = []
+    
+            for i in range(len(self.data)):
+                row = []
+                for j in range(len(self.data[0])):
+                    row.append(self.data[i][j] + other)
+                result.append(row)
+                row = []
 
         return Matrix(result)
 
     def __sub__(self,other):
 
-        if not isinstance(other, Matrix):
-            raise TypeError("Matrices may only be subtracted by other matrices")
+        if not isinstance(other, Matrix) and not isinstance(other,(float,int)):
+            raise TypeError("Matrices may only be subtracted by other matrices or a scalar")
 
-        if self.dimensions() != other.dimensions():
-            raise ValueError("Invalid dimensions")
-
-        result = []
-
-
-        for i in range(len(self.data)):
-            row = []
-            for j in range(len(self.data[0])):
-                row.append(self.data[i][j] - other.data[i][j])
-            result.append(row)
-            row = []
+        if isinstance(other,Matrix):
+            if self.dimensions() != other.dimensions():
+                raise ValueError("Invalid dimensions")
+    
+            result = []
+    
+            for i in range(len(self.data)):
+                row = []
+                for j in range(len(self.data[0])):
+                    row.append(self.data[i][j] - other.data[i][j])
+                result.append(row)
+                row = []
+        else:
+            if self.dimensions() != other.dimensions():
+                raise ValueError("Invalid dimensions")
+    
+            result = []
+    
+            for i in range(len(self.data)):
+                row = []
+                for j in range(len(self.data[0])):
+                    row.append(self.data[i][j] - other)
+                result.append(row)
+                row = []
+            
 
         return Matrix(result)
 
@@ -254,6 +280,11 @@ class Matrix:
     def inverse(self):
 
         return self._gauss_jordan(identity(self.dimensions[0]))[1]
+
+    def kron(self,other):
+        #Kronecker product
+        if not isinstance(other, Matrix):
+            raise TypeError("The Kronecker product only works between two matrices.")
 
 
 def identity(size):
